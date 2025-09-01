@@ -1,4 +1,4 @@
-
+```
 # Direnç Renk Kodu Hesaplayıcı
 
 Bu proje, seçilen renk bantlarına göre direnç değerini hesaplayan basit bir web uygulamasıdır.  
