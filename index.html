@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Direnç Hesaplama (4/5/6 Bant)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="container">
+    <h1>Direnç Hesaplama</h1>
+    <p class="subtitle">Renk seç → değer ve tolerans otomatik hesaplansın (4/5/6 bant)</p>
+  </header>
+
+  <main class="container grid">
+    <!-- Sol: Görsel -->
+    <section class="card">
+      <div class="tabs" role="tablist" aria-label="Bant sayısı">
+        <button class="tab active" data-mode="4" aria-selected="true">4 Bantlı</button>
+        <button class="tab" data-mode="5" aria-selected="false">5 Bantlı</button>
+        <button class="tab" data-mode="6" aria-selected="false">6 Bantlı</button>
+      </div>
+
+      <div class="resistor" id="resistor" aria-label="Direnç görseli">
+        <div class="core-bg"></div>
+        <div class="band band-1" id="band1"></div>
+        <div class="band band-2" id="band2"></div>
+        <div class="band band-3" id="band3"></div>
+        <div class="band band-4" id="band4"></div>
+        <div class="band band-5" id="band5"></div>
+        <div class="band band-6" id="band6"></div>
+      </div>
+
+      <small class="hint">Bant renkleri seçime göre anında değişir.</small>
+    </section>
+
+    <!-- Sağ: Seçimler + Sonuç -->
+    <section class="card">
+      <h2 class="card-title">Seçimler</h2>
+
+      <div class="controls">
+        <label>
+          1. Basamak
+          <select id="d1">
+            <option value="0" data-color="black">0 - Siyah</option>
+            <option value="1" data-color="brown" selected>1 - Kahverengi</option>
+            <option value="2" data-color="red">2 - Kırmızı</option>
+            <option value="3" data-color="orange">3 - Turuncu</option>
+            <option value="4" data-color="yellow">4 - Sarı</option>
+            <option value="5" data-color="green">5 - Yeşil</option>
+            <option value="6" data-color="blue">6 - Mavi</option>
+            <option value="7" data-color="violet">7 - Mor</option>
+            <option value="8" data-color="gray">8 - Gri</option>
+            <option value="9" data-color="white">9 - Beyaz</option>
+          </select>
+        </label>
+
+        <label>
+          2. Basamak
+          <select id="d2">
+            <option value="0" data-color="black">0 - Siyah</option>
+            <option value="1" data-color="brown">1 - Kahverengi</option>
+            <option value="2" data-color="red">2 - Kırmızı</option>
+            <option value="3" data-color="orange">3 - Turuncu</option>
+            <option value="4" data-color="yellow">4 - Sarı</option>
+            <option value="5" data-color="green" selected>5 - Yeşil</option>
+            <option value="6" data-color="blue">6 - Mavi</option>
+            <option value="7" data-color="violet">7 - Mor</option>
+            <option value="8" data-color="gray">8 - Gri</option>
+            <option value="9" data-color="white">9 - Beyaz</option>
+          </select>
+        </label>
+
+        <!-- 5/6 bant için üçüncü basamak -->
+        <label id="d3-wrap" class="hidden">
+          3. Basamak
+          <select id="d3">
+            <option value="0" data-color="black" selected>0 - Siyah</option>
+            <option value="1" data-color="brown">1 - Kahverengi</option>
+            <option value="2" data-color="red">2 - Kırmızı</option>
+            <option value="3" data-color="orange">3 - Turuncu</option>
+            <option value="4" data-color="yellow">4 - Sarı</option>
+            <option value="5" data-color="green">5 - Yeşil</option>
+            <option value="6" data-color="blue">6 - Mavi</option>
+            <option value="7" data-color="violet">7 - Mor</option>
+            <option value="8" data-color="gray">8 - Gri</option>
+            <option value="9" data-color="white">9 - Beyaz</option>
+          </select>
+        </label>
+
+        <label>
+          Çarpan
+          <select id="multiplier">
+            <option value="0.01" data-color="silver">×0.01 - Gümüş</option>
+            <option value="0.1"  data-color="gold">×0.1 - Altın</option>
+            <option value="1"    data-color="black">×1 - Siyah</option>
+            <option value="10"   data-color="brown">×10 - Kahverengi</option>
+            <option value="100"  data-color="red" selected>×100 - Kırmızı</option>
+            <option value="1000" data-color="orange">×1k - Turuncu</option>
+            <option value="10000" data-color="yellow">×10k - Sarı</option>
+            <option value="100000" data-color="green">×100k - Yeşil</option>
+            <option value="1000000" data-color="blue">×1M - Mavi</option>
+            <option value="10000000" data-color="violet">×10M - Mor</option>
+            <option value="100000000" data-color="gray">×100M - Gri</option>
+            <option value="1000000000" data-color="white">×1G - Beyaz</option>
+          </select>
+        </label>
+
+        <label>
+          Tolerans
+          <select id="tolerance">
+            <option value="20" data-color="none">±20% - (Yok)</option>
+            <option value="10" data-color="silver">±10% - Gümüş</option>
+            <option value="5"  data-color="gold" selected>±5% - Altın</option>
+            <option value="2"  data-color="red">±2% - Kırmızı</option>
+            <option value="1"  data-color="brown">±1% - Kahverengi</option>
+            <option value="0.5" data-color="green">±0.5% - Yeşil</option>
+            <option value="0.25" data-color="blue">±0.25% - Mavi</option>
+            <option value="0.1" data-color="violet">±0.1% - Mor</option>
+            <option value="0.05" data-color="gray">±0.05% - Gri</option>
+          </select>
+        </label>
+
+        <!-- 6 bant için sıcaklık katsayısı (gösterim amaçlı) -->
+        <label id="tempco-wrap" class="hidden">
+          Sıcaklık Katsayısı (ppm/°C)
+          <select id="tempco">
+            <option value="-" data-color="black">—</option>
+            <option value="250 ppm/°C" data-color="black">Siyah — 250</option>
+            <option value="100 ppm/°C" data-color="brown">Kahverengi — 100</option>
+            <option value="50 ppm/°C"  data-color="red">Kırmızı — 50</option>
+            <option value="25 ppm/°C"  data-color="yellow">Sarı — 25</option>
+            <option value="20 ppm/°C"  data-color="green">Yeşil — 20</option>
+            <option value="10 ppm/°C"  data-color="blue">Mavi — 10</option>
+            <option value="5 ppm/°C"   data-color="violet">Mor — 5</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="results">
+        <div class="result-line">
+          <span>Direnç Değeri:</span>
+          <strong id="valueText">–</strong>
+        </div>
+        <div class="result-line">
+          <span>Tolerans Aralığı:</span>
+          <strong id="rangeText">–</strong>
+        </div>
+        <div class="result-line" id="tempcoLine" style="display:none">
+          <span>Sıcaklık Katsayısı:</span>
+          <strong id="tempcoText">–</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <small>Not: 6. bant (sıcaklık katsayısı) yalnızca bilgi içindir; değere eklenmez.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
